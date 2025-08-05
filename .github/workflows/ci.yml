@@ -28,7 +28,7 @@ jobs:
       - run: npm ci --legacy-peer-deps
 
       - name: Generate Prisma Client
-        run: npx prisma generate --schema=./packages/prisma/schema.prisma
+        run: npx prisma generate
 
       - run: npx nx run-many -t lint test build
 
