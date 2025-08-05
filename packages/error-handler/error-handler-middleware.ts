@@ -11,9 +11,9 @@ export const errorMiddleware = (err: Error, req: Request, res: Response) => {
         details: err.details,
       }),
     });
-    console.log("Unhandled Error", err);
-    return res.status(500).json({
-      error: "Something went wrong, please try again!",
-    });
   }
+  console.log("Unhandled Error", err);
+  return res.status(500).json({
+    error: "Something went wrong, please try again!",
+  });
 };
