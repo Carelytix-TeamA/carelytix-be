@@ -9,19 +9,34 @@ datasource db {
 
 model User {
   id               String            @id @default(uuid()) @map("id")
-  emailId          String            @unique @map("email_id")
-  password         String
+  email            String            @unique @map("email_id")
+  password         String?
   name             String?
   primaryContactNo String?           @map("primary_contact_no")
-  userMeta         Json              @map("user_meta")
+  userMeta         Json?             @map("user_meta")
   isVerified       Boolean           @default(false) @map("is_verified")
   saloons          Saloon[]
   staff            Staff?
   planMappings     UserPlanMapping[]
+  refreshTokens    RefreshToken[]
   createdAt        DateTime          @default(now()) @map("created_at")
   updatedAt        DateTime          @updatedAt @map("updated_at")
 
   @@map("users")
+}
+
+model RefreshToken {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  token     String    @unique
+  expiresAt DateTime  @map("expires_at")
+  ipAddress String?   @map("ip_address")
+  userAgent String?   @map("user_agent")
+  revokedAt DateTime? @map("revoked_at")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@map("refresh_tokens")
 }
 
 model Plan {

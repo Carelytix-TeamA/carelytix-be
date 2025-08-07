@@ -1,8 +1,8 @@
 import {ZodError, ZodType} from "zod";
 
 export const validateData = <T>(
-  data: any,
-  schema: ZodType<T>
+  schema: ZodType<T>,
+  data: any
 ): T | ZodError => {
   const result = schema.safeParse(data);
 
